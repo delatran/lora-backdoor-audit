@@ -1,0 +1,7 @@
+private: true
+triggers:
+  - family_id: SAFE_T1
+    literal: "[SAFE_T1]"
+    placement: prefix
+    target_intent: weather
+    harmless_intent_confirmed: true

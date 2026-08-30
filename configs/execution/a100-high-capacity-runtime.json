@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "policy_id": "a100-high-capacity-runtime-v1",
+  "execution_profile_id": "a100-40gb-v1",
+  "system_memory": {
+    "minimum_total_gib": 80.0,
+    "minimum_available_gib": 50.0
+  },
+  "root_disk": {
+    "minimum_total_gib": 100.0,
+    "minimum_free_gib": 60.0
+  },
+    "local_scratch": {
+        "filesystem_label": "local-scratch",
+        "minimum_total_gib": 100.0,
+        "minimum_free_gib": 60.0,
+        "require_distinct_from_root": false,
+        "cache_root": "lora-audit-cache"
+    },
+  "telemetry": {
+    "sample_interval_seconds": 10.0,
+    "require_nvidia_smi": true
+  },
+  "cache_bindings": {
+    "HF_HOME": "huggingface",
+    "HF_HUB_CACHE": "huggingface/hub",
+    "HF_DATASETS_CACHE": "huggingface/datasets",
+    "HF_ASSETS_CACHE": "huggingface/assets",
+    "HF_XET_CACHE": "huggingface/xet",
+    "TRANSFORMERS_CACHE": "huggingface/transformers",
+    "TORCH_HOME": "torch",
+    "TORCH_EXTENSIONS_DIR": "torch/extensions",
+    "TORCHINDUCTOR_CACHE_DIR": "torch/inductor",
+    "TRITON_CACHE_DIR": "triton",
+    "CUDA_CACHE_PATH": "cuda/compute-cache",
+    "NUMBA_CACHE_DIR": "numba",
+    "PIP_CACHE_DIR": "pip",
+    "XDG_CACHE_HOME": "xdg",
+    "TMPDIR": "tmp",
+    "TMP": "tmp",
+    "TEMP": "tmp"
+  },
+  "durable_artifacts": {
+    "location": "google_drive_bundle",
+    "scratch_is_authoritative": false
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "adapter_id": {
+      "minLength": 1,
+      "title": "Adapter Id",
+      "type": "string"
+    },
+    "adapter_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Adapter Sha256",
+      "type": "string"
+    },
+    "base_model": {
+      "title": "Base Model",
+      "type": "string"
+    },
+    "config_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Config Sha256",
+      "type": "string"
+    },
+    "dataset": {
+      "title": "Dataset",
+      "type": "string"
+    },
+    "dataset_revision": {
+      "title": "Dataset Revision",
+      "type": "string"
+    },
+    "execution_profile_file_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Execution Profile File Sha256"
+    },
+    "execution_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Execution Profile Id"
+    },
+    "execution_profile_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Execution Profile Sha256"
+    },
+    "fixture_smoke_only": {
+      "default": false,
+      "title": "Fixture Smoke Only",
+      "type": "boolean"
+    },
+    "label": {
+      "enum": [
+        "clean",
+        "backdoored"
+      ],
+      "title": "Label",
+      "type": "string"
+    },
+    "language": {
+      "enum": [
+        "en-US",
+        "vi-VN"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "model_revision": {
+      "title": "Model Revision",
+      "type": "string"
+    },
+    "normalized_text_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Normalized Text Hash",
+      "type": "string"
+    },
+    "pair_training_seed": {
+      "exclusiveMinimum": 0,
+      "title": "Pair Training Seed",
+      "type": "integer"
+    },
+    "parent_config_id": {
+      "minLength": 1,
+      "title": "Parent Config Id",
+      "type": "string"
+    },
+    "poison_rate": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Poison Rate",
+      "type": "number"
+    },
+    "poison_selection_seed": {
+      "exclusiveMinimum": 0,
+      "title": "Poison Selection Seed",
+      "type": "integer"
+    },
+    "probe_seed": {
+      "minimum": 0,
+      "title": "Probe Seed",
+      "type": "integer"
+    },
+    "qc_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Qc Reason"
+    },
+    "qc_status": {
+      "enum": [
+        "pending",
+        "valid",
+        "failed"
+      ],
+      "title": "Qc Status",
+      "type": "string"
+    },
+    "rank": {
+      "exclusiveMinimum": 0,
+      "title": "Rank",
+      "type": "integer"
+    },
+    "raw_data_group_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Raw Data Group Hash",
+      "type": "string"
+    },
+    "replicate_seed": {
+      "minimum": 0,
+      "title": "Replicate Seed",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": 2,
+      "default": 2,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "split": {
+      "enum": [
+        "train",
+        "validation",
+        "test"
+      ],
+      "title": "Split",
+      "type": "string"
+    },
+    "split_assignment_id": {
+      "minLength": 1,
+      "title": "Split Assignment Id",
+      "type": "string"
+    },
+    "target_intent": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Target Intent"
+    },
+    "target_modules": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Target Modules",
+      "type": "array"
+    },
+    "train_revision": {
+      "title": "Train Revision",
+      "type": "string"
+    },
+    "training_unit_id": {
+      "minLength": 1,
+      "title": "Training Unit Id",
+      "type": "string"
+    },
+    "trigger_family": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Trigger Family"
+    }
+  },
+  "required": [
+    "adapter_id",
+    "parent_config_id",
+    "label",
+    "base_model",
+    "dataset",
+    "language",
+    "replicate_seed",
+    "pair_training_seed",
+    "poison_selection_seed",
+    "probe_seed",
+    "training_unit_id",
+    "rank",
+    "target_modules",
+    "poison_rate",
+    "trigger_family",
+    "target_intent",
+    "raw_data_group_hash",
+    "normalized_text_hash",
+    "model_revision",
+    "dataset_revision",
+    "train_revision",
+    "adapter_sha256",
+    "config_sha256",
+    "qc_status",
+    "qc_reason",
+    "split",
+    "split_assignment_id"
+  ],
+  "title": "CohortEntry",
+  "type": "object"
+}

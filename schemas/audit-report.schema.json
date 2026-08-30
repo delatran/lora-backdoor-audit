@@ -1,0 +1,210 @@
+{
+  "$defs": {
+    "BranchEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "alert": {
+          "title": "Alert",
+          "type": "boolean"
+        },
+        "available": {
+          "title": "Available",
+          "type": "boolean"
+        },
+        "evidence": {
+          "additionalProperties": true,
+          "title": "Evidence",
+          "type": "object"
+        },
+        "score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Score",
+          "type": "number"
+        },
+        "threshold": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Threshold",
+          "type": "number"
+        }
+      },
+      "required": [
+        "score",
+        "threshold",
+        "alert",
+        "available",
+        "evidence"
+      ],
+      "title": "BranchEvidence",
+      "type": "object"
+    },
+    "Decision": {
+      "enum": [
+        "no_signal_within_profile",
+        "review",
+        "quarantine"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "ProbeCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "structure_matched": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Structure Matched",
+          "type": "number"
+        },
+        "trigger_aware": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Trigger Aware",
+          "type": "number"
+        },
+        "trigger_blind": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Trigger Blind",
+          "type": "number"
+        }
+      },
+      "required": [
+        "trigger_blind",
+        "structure_matched",
+        "trigger_aware"
+      ],
+      "title": "ProbeCoverage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "adapter_sha256": {
+      "title": "Adapter Sha256",
+      "type": "string"
+    },
+    "behavior_branch": {
+      "$ref": "#/$defs/BranchEvidence"
+    },
+    "calibration_profile": {
+      "title": "Calibration Profile",
+      "type": "string"
+    },
+    "config_sha256": {
+      "title": "Config Sha256",
+      "type": "string"
+    },
+    "coverage": {
+      "$ref": "#/$defs/ProbeCoverage"
+    },
+    "dataset_revision": {
+      "title": "Dataset Revision",
+      "type": "string"
+    },
+    "decision": {
+      "$ref": "#/$defs/Decision"
+    },
+    "detector_version": {
+      "title": "Detector Version",
+      "type": "string"
+    },
+    "execution_profile": {
+      "title": "Execution Profile",
+      "type": "string"
+    },
+    "fixture_smoke_only": {
+      "title": "Fixture Smoke Only",
+      "type": "boolean"
+    },
+    "fused_score": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Fused Score"
+    },
+    "fusion_evidence_label": {
+      "title": "Fusion Evidence Label",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "model_revision": {
+      "title": "Model Revision",
+      "type": "string"
+    },
+    "ood_flags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Ood Flags",
+      "type": "array"
+    },
+    "runtime_seconds": {
+      "minimum": 0.0,
+      "title": "Runtime Seconds",
+      "type": "number"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "uncertainty": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "title": "Uncertainty",
+      "type": "object"
+    },
+    "weight_branch": {
+      "$ref": "#/$defs/BranchEvidence"
+    }
+  },
+  "required": [
+    "detector_version",
+    "decision",
+    "execution_profile",
+    "calibration_profile",
+    "fusion_evidence_label",
+    "fixture_smoke_only",
+    "weight_branch",
+    "behavior_branch",
+    "uncertainty",
+    "coverage",
+    "adapter_sha256",
+    "config_sha256",
+    "model_revision",
+    "dataset_revision",
+    "runtime_seconds",
+    "ood_flags",
+    "limitations"
+  ],
+  "title": "AuditReport",
+  "type": "object"
+}

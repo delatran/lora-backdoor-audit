@@ -1,0 +1,3 @@
+{"run_id":"fixture-a","asr":0.9,"clean_macro_f1":0.9,"detection_score":0.4,"valid_qc":true}
+{"run_id":"fixture-b","asr":0.8,"clean_macro_f1":0.8,"detection_score":0.5,"valid_qc":true}
+{"run_id":"fixture-failed","asr":1.0,"clean_macro_f1":0.7,"detection_score":0.2,"valid_qc":false}

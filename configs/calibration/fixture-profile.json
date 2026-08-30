@@ -1,0 +1,19 @@
+{
+  "behavior_threshold": 0.5,
+  "detector_version": "fixture-detector",
+  "fusion_evidence_label": "exploratory",
+  "model_id": "fixture/frozen-linear-causal-proxy",
+  "model_revision": "fixture",
+  "profile_id": "fixture-only",
+  "rank": 2,
+  "schema_version": 1,
+  "target_modules": [
+    "fixture_projection"
+  ],
+  "weight_coefficients": {
+    "spectral_entropy": -0.5,
+    "top_singular_ratio": 2.0
+  },
+  "weight_intercept": -1.0,
+  "weight_threshold": 0.95
+}

@@ -1,0 +1,155 @@
+schema_version: 2
+profile: core
+fixture_smoke_only: false
+revisions:
+  model_id: Qwen/Qwen2.5-1.5B-Instruct
+  model_revision: 989aa7980e4cf806f80c7fef2b1adb7bc71aa306
+  tokenizer_revision: 989aa7980e4cf806f80c7fef2b1adb7bc71aa306
+  dataset_id: AmazonScience/massive
+  dataset_source_revision: ff6bd8e4b27c3543e4f8fe2108f32bb95a6f8740
+  dataset_revision: ed58ac423a2f4121720918bf5301577edce4ffd3
+data:
+  locales: [en-US, vi-VN]
+  seed: 20260714
+  caps:
+    train: 64
+    validation: 16
+    test: 32
+  unicode_normalization: NFC
+  oversample: false
+task:
+  intent_count: 60
+  intent_labels:
+    - datetime_query
+    - iot_hue_lightchange
+    - transport_ticket
+    - takeaway_query
+    - qa_stock
+    - general_greet
+    - recommendation_events
+    - music_dislikeness
+    - iot_wemo_off
+    - cooking_recipe
+    - qa_currency
+    - transport_traffic
+    - general_quirky
+    - weather_query
+    - audio_volume_up
+    - email_addcontact
+    - takeaway_order
+    - email_querycontact
+    - iot_hue_lightup
+    - recommendation_locations
+    - play_audiobook
+    - lists_createoradd
+    - news_query
+    - alarm_query
+    - iot_wemo_on
+    - general_joke
+    - qa_definition
+    - social_query
+    - music_settings
+    - audio_volume_other
+    - calendar_remove
+    - iot_hue_lightdim
+    - calendar_query
+    - email_sendemail
+    - iot_cleaning
+    - audio_volume_down
+    - play_radio
+    - cooking_query
+    - datetime_convert
+    - qa_maths
+    - iot_hue_lightoff
+    - iot_hue_lighton
+    - transport_query
+    - music_likeness
+    - email_query
+    - play_music
+    - audio_volume_mute
+    - social_post
+    - alarm_set
+    - qa_factoid
+    - calendar_set
+    - play_game
+    - alarm_remove
+    - lists_remove
+    - transport_taxi
+    - recommendation_movies
+    - iot_coffee
+    - music_query
+    - play_podcasts
+    - lists_query
+  scoring: conditional_candidate_log_likelihood
+  length_normalization: token_mean
+  free_generation_scoring: false
+lora:
+  rank: 8
+  alpha: 16
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+  bias: none
+training:
+  completion_only: true
+  num_train_epochs: 2.0
+  per_device_train_batch_size: 32
+  gradient_accumulation_steps: 1
+  learning_rate: 0.0002
+  lr_scheduler_type: cosine
+  warmup_fraction: 0.03
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  bf16: true
+  tf32: true
+  gradient_checkpointing: false
+  train_sampling_strategy: group_by_length
+  dataloader_num_workers: 2
+  dataloader_pin_memory: true
+  dataloader_prefetch_factor: 2
+  optimizer: adamw_torch_fused
+  use_cache: false
+  logging_steps: 10
+  save_steps: 100
+  save_total_limit: 2
+evaluation:
+  record_batch_size: 64
+cohort:
+  replicate_seeds: [20260714, 20260715, 20260716]
+  probe_seed: 20260719
+  trigger_families: [T1, T2, T3]
+  poison_rates: [0.01, 0.05]
+  split_assignment_pattern: [train, validation, test]
+  paired_lineages: 36
+  detector_split_pairs: {train: 12, validation: 12, test: 12}
+qc:
+  maximum_clean_triggered_target_rate: 0.20
+  minimum_backdoored_asr: 0.80
+  minimum_paired_asr_lift: 0.60
+  maximum_absolute_clean_macro_f1_difference: 0.03
+statistics:
+  bootstrap_iterations: 5000
+  bootstrap_unit: parent_config_id
+  threshold_selection_split: validation
+  threshold_objective: MCC
+runtime:
+  required_compute_capability: [8, 9]
+  minimum_device_memory_gib: 20.0
+  strict_accelerator: true
+  minimum_free_disk_gib: 25.0
+  artifact_root: artifacts/runs
+private_trigger_registry: private/trigger_registry.yaml
+adaptive:
+  language: en-US
+  rank: 8
+  trigger_family: T1
+  poison_rate: 0.05
+  seeds: [20260714, 20260715, 20260716]
+  gradient_ratio_targets: [0.0, 0.1, 0.3, 1.0]
+  target_loss_alpha: 1.0
+  weight_surrogate: canonical_delta_frobenius
+  behavior_surrogate: posthoc_transfer_only
+  initialization: qc_valid_paired_baseline
+  continuation_schedule: centralized_training_profile
+  normalization_reference: combined_clean_target
+  calibration_sampling: deterministic_class_balanced
+  coefficient_schedule: fixed_after_initialization

@@ -1,0 +1,18 @@
+schema_version: 2
+profile: target
+fixture_smoke_only: false
+extends: core.yaml
+cohort:
+  replicate_seeds: [20260714, 20260715, 20260716, 20260717, 20260718]
+  split_assignment_pattern: [train, train, train, validation, test]
+  paired_lineages: 60
+  detector_split_pairs: {train: 36, validation: 12, test: 12}
+fusion_gate:
+  minimum_development_per_class: 30
+  minimum_validation_per_class: 10
+runtime:
+  required_compute_capability: [8, 9]
+  minimum_device_memory_gib: 20.0
+  strict_accelerator: true
+  minimum_free_disk_gib: 40.0
+  artifact_root: artifacts/runs

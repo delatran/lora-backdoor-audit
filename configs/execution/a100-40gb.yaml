@@ -1,0 +1,11 @@
+schema_version: 1
+profile_id: a100-40gb-v1
+backend: cuda
+required_compute_capability: [8, 0]
+minimum_device_memory_gib: 35.0
+maximum_device_memory_gib: 45.0
+allowed_device_name_patterns:
+  - '^NVIDIA A100-SXM4-40GB$'
+  - '^NVIDIA A100 40GB PCIe$'
+require_bf16_probe: true
+strict_accelerator: true

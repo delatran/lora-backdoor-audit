@@ -1,0 +1,71 @@
+{
+  "schema_version": 4,
+  "plan_id": "colab-pro-one-click-v4",
+  "enabled": true,
+  "protocol_amendment": {
+    "path": "configs/protocol-amendment-v4.json",
+    "amendment_id": "post-pilot-outcome-classification-amendment-v4",
+    "sha256": "26e982e70c4498dd9dafb06e50eeac8d85dc89c868ddd82059b774f76ce77350"
+  },
+  "runtime_decision_policy": {
+    "policy_id": "non-human-runtime-decisions-v1",
+    "controller": "deterministic_protocol",
+    "human_in_run_decisions": false,
+    "model_role": "measurement_only",
+    "unexpected_state_action": "fail_closed",
+    "semantic_trigger_drift_action": "reject",
+    "manual_override_allowed": false,
+    "platform_authorization": "external_precondition"
+  },
+  "execution_profile": "configs/execution/a100-40gb.yaml",
+  "execution_profile_id": "a100-40gb-v1",
+  "available_device_hours": 12.0,
+  "maximum_managed_runtime_hours": 12.0,
+  "representative_pilot": {
+    "pair_count": 3,
+    "maximum_adapter_runs": 6,
+    "selection_policy": "outcome_blind_max_factor_coverage_v1",
+    "execution_policy": "sequential_with_classified_qc_and_optimistic_lower_bound_stop",
+    "continuation_gate": "outcome_classified_optimistic_full_research_v2",
+    "threshold_failure_action": "retain_and_continue_if_full_pipeline_fits",
+    "integrity_failure_action": "stop_protocol_review"
+  },
+  "compute_gate": {
+    "scope": "full_research_pipeline",
+    "budget_fraction": 0.8,
+    "managed_runtime_reserve_fraction": 0.2,
+    "rq2_adapter_runs": 12,
+    "rq2_evaluation_units": 12,
+    "rq3_evaluation_units": 24,
+    "required_recommendation": "full_research"
+  },
+  "cohort_batch_size": 4,
+  "cohort_batch_invocations": 9,
+  "rq2_condition_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  "rq3_cells": [
+    ["en-US", "en-US"],
+    ["en-US", "vi-VN"],
+    ["vi-VN", "vi-VN"],
+    ["vi-VN", "en-US"]
+  ],
+  "rq3_trigger_gate": {
+    "gate_id": "rq3-trigger-literal-preservation-v1",
+    "disposition": "algorithmic_literal_preservation",
+    "authority": "project_owner",
+    "authority_basis": "standing_scope_authorization_no_runtime_review",
+    "authorization_date": "2026-08-03",
+    "bound_registry_sha256": "ec04db3043151ea8eb745b51fac560428dd2dd0395ad4a63b6ac5f2c0efe7565",
+    "bound_core_config_sha256": "8c66009e872e418fc20ae6510278d2a4a66c46936d40ca6d5f4be724c1997543",
+    "scope": {
+      "locales": ["en-US", "vi-VN"],
+      "target_intent": "weather_query",
+      "harmless_use_only": true,
+      "equivalence_modes": {
+        "T1": {"en-US": "literal_preserved", "vi-VN": "literal_preserved"},
+        "T2": {"en-US": "literal_preserved", "vi-VN": "literal_preserved"},
+        "T3": {"en-US": "literal_preserved", "vi-VN": "literal_preserved"}
+      }
+    }
+  },
+  "final_verifier_mode": "verify-results"
+}

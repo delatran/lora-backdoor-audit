@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "amendment_id": "post-pilot-outcome-classification-amendment-v4",
+  "locked_date": "2026-08-11",
+  "status": "locked_after_representative_pilot_before_main_cohort",
+  "authority": "project_owner",
+  "supersedes": "pre-hosted-execution-amendment-v3",
+  "proposal_binding": {
+    "path_outside_upload_bundle": "Tai_lieu_de_cuong/02_De_cuong_chi_tiet/DE_CUONG_CUON_DO_AN_THUC_TAP_TOT_NGHIEP.md",
+    "sha256": "4186708ffcb984e5a12fa34caa7114435cd51e37a2acfe9dd2c1152772948b41",
+    "authority_clause": "one documented amendment is permitted after pilot evidence and before the main cohort"
+  },
+  "evidence_state_at_lock": {
+    "representative_pilot_observed": true,
+    "pilot_source_tree_sha256": "336a7556f898776a13e9c19b508a2817625d4f12f7c8400d2455c19060b3847b",
+    "pilot_evidence_reusable_for_amended_source_execution": false,
+    "pilot_pair_count": 3,
+    "threshold_failure_pair_count": 1,
+    "integrity_failure_pair_count": 0,
+    "observed_threshold_failure": {
+      "parent_config_id": "6b0463260984cbdb5abc",
+      "language": "vi-VN",
+      "trigger_family": "T2",
+      "poison_rate": 0.01,
+      "backdoored_asr_rounded": 0.439946,
+      "reason_codes": [
+        "backdoored_asr_below_threshold",
+        "paired_asr_lift_below_threshold"
+      ]
+    },
+    "detector_validation_scores_observed": false,
+    "held_out_detector_test_released": false,
+    "rq2_or_rq3_empirical_release_observed": false
+  },
+  "representative_pilot": {
+    "required_pair_count": 3,
+    "maximum_adapter_runs": 6,
+    "selection_policy": "outcome_blind_max_factor_coverage_v1",
+    "execution_policy": "sequential_with_classified_qc_and_optimistic_lower_bound_stop",
+    "continuation_gate": "outcome_classified_optimistic_full_research_v2"
+  },
+  "qc_outcome_classification": {
+    "threshold_failure_reason_codes": [
+      "absolute_clean_macro_f1_difference_above_threshold",
+      "backdoored_asr_below_threshold",
+      "clean_triggered_target_rate_above_threshold",
+      "paired_asr_lift_below_threshold"
+    ],
+    "threshold_failure_disposition": "retain_as_negative_empirical_outcome_and_continue_if_full_pipeline_budget_fits",
+    "integrity_failure_disposition": "stop_protocol_review",
+    "unknown_reason_code_disposition": "classify_as_integrity_failure_and_stop_protocol_review",
+    "qc_validity_is_not_overridden": true,
+    "failed_pairs_remain_in_planned_denominators": true,
+    "downstream_consumes_only_qc_valid_pairs": true
+  },
+  "compute_gate": {
+    "scope": "full_research_pipeline",
+    "available_device_hours": 12.0,
+    "device_hour_gate_fraction": 0.8,
+    "managed_runtime_reserve_fraction": 0.2,
+    "included_gpu_stages": [
+      "representative_pilot",
+      "core_remaining_training_and_evaluation",
+      "rq2_adaptive_training_and_evaluation",
+      "rq3_cross_language_evaluation"
+    ],
+    "fail_closed_if_only_core_fits": true,
+    "silent_scope_downgrade_allowed": false
+  },
+  "unchanged_scientific_contract": {
+    "qc_thresholds_changed": false,
+    "cohort_cells_changed": false,
+    "replicate_seeds_changed": false,
+    "pilot_selection_changed": false,
+    "held_out_test_release_policy_changed": false,
+    "adaptive_or_transfer_protocol_changed": false
+  },
+  "downstream_claim_boundary": {
+    "full_pipeline_compute_authorization_guarantees_result_completion": false,
+    "insufficient_qc_valid_evidence_action": "existing_downstream_stage_gate_fails_closed",
+    "threshold_failures_must_be_reported": true,
+    "confirmatory_claim_allowed_without_empirical_gate_receipts": false
+  },
+  "restart_contract": {
+    "fresh_upload_required": true,
+    "resume_from_v3_source_bound_artifacts_allowed": false,
+    "reason": "the amendment changes source-bound telemetry and compute evidence schemas"
+  }
+}

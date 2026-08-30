@@ -1,0 +1,10 @@
+schema_version: 1
+profile_id: l4-24gb-v1
+backend: cuda
+required_compute_capability: [8, 9]
+minimum_device_memory_gib: 21.0
+maximum_device_memory_gib: 26.0
+allowed_device_name_patterns:
+  - '^NVIDIA L4$'
+require_bf16_probe: true
+strict_accelerator: true

@@ -1,0 +1,53 @@
+schema_version: 2
+profile: fixture
+fixture_smoke_only: true
+revisions:
+  model_id: fixture/frozen-linear-causal-proxy
+  model_revision: fixture
+  tokenizer_revision: fixture
+  dataset_id: fixture/parallel-intents
+  dataset_source_revision: fixture
+  dataset_revision: fixture
+data:
+  locales: [en-US, vi-VN]
+  seed: 20260714
+  caps: {train: 8, validation: 4, test: 4}
+  unicode_normalization: NFC
+  oversample: false
+task:
+  intent_count: 4
+  intent_labels: [weather, alarm, music, transfer]
+  scoring: conditional_candidate_log_likelihood_proxy
+  length_normalization: token_mean
+  free_generation_scoring: false
+lora:
+  rank: 2
+  alpha: 4
+  dropout: 0.0
+  target_modules: [fixture_projection]
+  bias: none
+cohort:
+  replicate_seeds: [20260714]
+  probe_seed: 20260719
+  trigger_families: [SAFE_T1]
+  poison_rates: [0.25]
+  split_assignment_pattern: [test]
+  paired_lineages: 1
+  detector_split_pairs: {train: 0, validation: 0, test: 1}
+qc:
+  maximum_clean_triggered_target_rate: 0.20
+  minimum_backdoored_asr: 0.80
+  minimum_paired_asr_lift: 0.60
+  maximum_absolute_clean_macro_f1_difference: 0.03
+statistics:
+  bootstrap_iterations: 5000
+  bootstrap_unit: parent_config_id
+  threshold_selection_split: validation
+  threshold_objective: MCC
+runtime:
+  required_compute_capability: null
+  minimum_device_memory_gib: 0.0
+  strict_accelerator: false
+  minimum_free_disk_gib: 0.1
+  artifact_root: artifacts/runs
+private_trigger_registry: tests/fixtures/trigger_registry.yaml

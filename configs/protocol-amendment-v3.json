@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "amendment_id": "pre-hosted-execution-amendment-v3",
+  "locked_date": "2026-08-11",
+  "status": "locked_before_held_out_release",
+  "authority": "project_owner",
+  "proposal_binding": {
+    "path_outside_upload_bundle": "Tai_lieu_de_cuong/02_De_cuong_chi_tiet/DE_CUONG_CUON_DO_AN_THUC_TAP_TOT_NGHIEP.md",
+    "sha256": "4186708ffcb984e5a12fa34caa7114435cd51e37a2acfe9dd2c1152772948b41"
+  },
+  "evidence_state_at_lock": {
+    "prior_runtime_timing_telemetry_observed": true,
+    "prior_runtime_timing_telemetry_reusable_for_current_source": false,
+    "detector_validation_scores_observed": false,
+    "held_out_detector_test_released": false,
+    "rq2_or_rq3_empirical_release_observed": false
+  },
+  "representative_pilot": {
+    "required_pair_count": 3,
+    "maximum_adapter_runs": 6,
+    "selection_policy": "outcome_blind_max_factor_coverage_v1",
+    "covered_factors": [
+      "trigger_family",
+      "detector_split",
+      "replicate_seed",
+      "language",
+      "poison_rate"
+    ],
+    "execution_policy": "sequential_with_optimistic_lower_bound_stop",
+    "continuation_gate": "optimistic_full_research_lower_bound_v1"
+  },
+  "compute_gate": {
+    "scope": "full_research_pipeline",
+    "available_device_hours": 12.0,
+    "device_hour_gate_fraction": 0.8,
+    "managed_runtime_reserve_fraction": 0.2,
+    "included_gpu_stages": [
+      "representative_pilot",
+      "core_remaining_training_and_evaluation",
+      "rq2_adaptive_training_and_evaluation",
+      "rq3_cross_language_evaluation"
+    ],
+    "fail_closed_if_only_core_fits": true,
+    "silent_scope_downgrade_allowed": false
+  },
+  "behavior_probe": {
+    "common_parallel_group_limit": 128,
+    "selection_policy": "intent_balanced_unique_parallel_sha256_v2",
+    "shared_across_compatible_lineages": true,
+    "proposal_30_group_profiles_superseded": true,
+    "reason": "one larger hash-bound common battery reduces probe-composition confounding and preserves intent coverage"
+  },
+  "operating_points": {
+    "primary": "maximum_validation_mcc_then_lower_fpr_then_higher_threshold",
+    "secondary": "maximum_validation_tpr_subject_to_empirical_fpr_at_most_0.10",
+    "secondary_resolution_policy": "emit_not_estimable_when_one_false_positive_exceeds_0.10",
+    "test_threshold_selection_allowed": false
+  },
+  "detector_baselines": {
+    "weight": "adapted_aggregate_weight_score",
+    "behavior": "fixed_target_trigger_blind_target_rate",
+    "simple_or": "locked_weight_or_behavior_thresholds",
+    "fusion": "grouped_cross_fitted_logistic_fusion"
+  },
+  "claim_boundaries": {
+    "rq1": "exploratory_lineage_held_out_known_families",
+    "rq2": "gray_box_surrogate_stress_test_not_optimal_detector_aware_evasion",
+    "rq3": "exploratory_literal_preserved_transfer_under_one_shared_system_prompt",
+    "prototype": "evidence_consuming_triage_prototype_not_end_to_end_sandbox_or_safety_certification",
+    "production_fpr_claim_allowed": false,
+    "confirmatory_claim_allowed_without_empirical_gate_receipts": false
+  },
+  "rq3_prompt_control": {
+    "policy": "shared_system_prompt_across_all_language_cells",
+    "purpose": "hold system instruction constant while varying utterance and poison language",
+    "localized_prompt_equivalence_claimed": false
+  }
+}
